@@ -1,0 +1,35 @@
+A20433490
+Javier Moreno
+
+CS 585 Natural Language Processing
+Homework 4
+
+The code has been modified to include the following improvements:
+
+	3.) Parse trees representation. In case a sentence is succesfully parsed the program prints out its tree representation in a bracketed form. To do so two different methods have been implemented.
+
+	The method called struct2str takes as arguments the first edge of the list of edges that make the parse, the chart (list of all edges) of the parse and the grammar object returned by PSGParse3. This method creates a list (tmp_list) that is going to store the words of the sentence, the tags and the required brackets on each particular position. It fills the list with the information of the first edge and calls the recursive method recursiveStruct2Str. This method keeps filling the tmp_list with each edge of the parse and, when it finishes, pases the completed list to the struct2str method. Finally, struct2str converts this list to string and returns the string. This way, for example, if we parse the sentence "the alien drives a jetcar" with the simple.gr grammar file, we obtain the following result:
+
+	s[ np[ fd[ the ] nbar[ fn[ alien ] ] ] vp[ vbar[ vbar[ fv[ drives ] ] np[ fd[ a ] nbar[ fn[ jetcar ] ] ] ] ] ] 
+
+	4.) Probabilistic parsing. Now, the program prints out the probability of each parse that is succesfully parsed, calculated as the sum of the log-probabilities of each children of the parse. To do so we first include two variables in the class PSG to store a list (probs) with the probabilities of each rule, and a dictionary (rule_probs) with rules as keys and probabilities as values. These probabilities are extracted from the first column of the table in the grammar files. Then we modified the two new methods, struct2str and recursiveStruct2Str, to calulate the probability of the parse as the sum of the log-probabilities of each edge in the parse and then convert it to natural units. For example, using the prob-simple.gr file and the same sentence as before ("the alien drives a jet car") the program prints out the following line:
+
+	Prob = 1.8144000000000039e-07
+
+	- We can also test the system on ambiguos sentences. For example, if we parse the sentence "john drives a jetcar in a watermelon" we find three different representations with different probabilities:
+
+	a) s[ np[ fname[ john ] ] vp[ vbar[ vbar[ fv[ drives ] ] np[ fd[ a ] nbar[ fn[ jetcar ] ] ] ] vbar-mods[ pp[ fp[ in ] np[ fd[ a ] nbar[ fn[ watermelon ] ] ] ] ] ] ] 
+	Prob = 1.312200000000004e-10
+
+	b) s[ np[ fname[ john ] ] vp[ vbar[ vbar[ fv[ drives ] ] np[ fd[ a ] nbar[ fn[ jetcar ] ] ] pp[ fp[ in ] np[ fd[ a ] nbar[ fn[ watermelon ] ] ] ] ] ] ] 
+	Prob = 1.0206000000000027e-10
+
+	c) s[ np[ fname[ john ] ] vp[ vbar[ vbar[ fv[ drives ] ] np[ fd[ a ] nbar[ fn[ jetcar ] nbar-mods[ pp[ fp[ in ] np[ fd[ a ] nbar[ fn[ watermelon ] ] ] ] ] ] ] ] ] ] 
+	Prob = 4.0824000000000117e-10
+
+	We can see that, according to our system, the most common representation is c) with a probability of 4.08e-10.
+
+	- Further improvements:
+	The system uses a phrase or constituent structure parsing algorithm that, combined with the probabilistic parsing improvement, works considerably well. The main drawback of the system is the poor grammar that is being used. A richer grammar table would allow us to parse a higher variety of sentences.
+
+	We can also use a dependency grammar structure instead of the constituent structure. This type of structure would allow us to abstract from the order of the words, but it would require also changing the current grammar table for a dependency grammar table.

@@ -1,0 +1,11 @@
+A20433490
+Javier Moreno
+
+CS 585 Natural Language Processing
+Homework 4
+
+The parser, in its initial form, can only parse sentences which all words are included in the "simple.gr" file and which relations between words are also included as rules in the "simple.gr" file. A example of sentence that the parser can parse is "the alien drives a jetcar". Firstly, every word of this sentence is included in the grammar file and secondly, all the grammar relations of this sentence are included in our grammar file.
+
+However, if the sentence contains a word that is not included in the grammar file it will fail to parse it. For example, the sentence "the human drives a jetcar" returns an error since the word "human" is not in the simple.gr file. In addition, if we try to parse a sentence which some of its grammar relations is not inlcuded in the rules of the grammar file, it also will fail to parse it. For example, the sentence "the alien drives a john" is not parsed since the word "john" has the tag fname and not fn, and the rule nbar -> fname is not in the table.
+
+In order to correctly parse other kind of sentences we should modify the grammar file, including all rules and words that the new sentences have. However, we still have a problem when parsing ambiguous sentences, such as "she sees a man with a telescope". This type of sentences will generate more than one parse from which the system must be able to identificate the most probable one. We see how we can do this in the part 4 (probabilistic parsing) of this assignment.

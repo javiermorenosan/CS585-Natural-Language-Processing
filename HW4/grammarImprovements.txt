@@ -1,0 +1,13 @@
+A20433490
+Javier Moreno
+
+CS 585 Natural Language Processing
+Homework 4
+
+In order to improve the system we can improve the grammar which is being used in the assessment. We are using the "simple.gr" file as grammar. This file contains a table with the rules that the system can parse. It is a limmited grammar since it only include 68 rules and 43 different words. We can improve this grammar in several different ways:
+
+	- Adding new words to the grammar. For example, if we add the rule (0 fn  human), the system is able to parse sentences with the word human. E.g. "the human drives a jetcar"
+	
+	- We can also add new words of new types that the grammar file does not have yet, such as adjectives. The rules (0 adj  big) and (0 nbar  adj fn) would allow us to construct structures in which an adjective precedes a name. We now can parse the sentence: "the big alien drives a big jetcar".
+	
+	- Finally we can also include conjunctions, such as "and". Conjuctions allows us to parse more complex structures and compound sentences. We first include the word "and" in the grammar with the rule (0 conj  and) and then the rule (0 np  np conj np) allows us to parse the sentence "the alien and a human drive the jetcar". And finally the rule (0 s  s conj s), allows us to parse compound sentence as "the alien drives a jetcar and the human lives in chicago".
